@@ -117,3 +117,5 @@ gsed() {
     grep -o '.*\..*:[0-9]*:' | xargs -I % bash -c "_sed %"  &&
     export -n existing new
 }
+
+. ~/dotfiles/z/z.sh
