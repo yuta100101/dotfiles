@@ -118,6 +118,15 @@ gsed() {
     export -n existing new
 }
 
+# fact - conda activate
+fact() {
+    local env
+    env=$(conda env list |
+          fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort |
+          cut -d " " -f 1) &&
+    conda activate $env
+}
+
 . ~/dotfiles/.z/z.sh
 
 # >>> conda initialize >>>
