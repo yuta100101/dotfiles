@@ -118,4 +118,4 @@ gsed() {
     export -n existing new
 }
 
-. ~/dotfiles/z/z.sh
+. ~/dotfiles/.z/z.sh
