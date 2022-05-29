@@ -1,0 +1,11 @@
+[user]
+        email = uchida.yuta.mar.sh.nat@gmail.com
+        name = yuta100101
+[core]
+	editor = vim
+[alias]
+        ss = status
+        ck = checkout
+        cm = commit
+        lol = log --graph --oneline --remotes --branches --decorate=full
+        br = branch
