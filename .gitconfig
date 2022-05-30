@@ -9,6 +9,13 @@
         cm = commit
         lol = log --graph --oneline --remotes --branches --decorate=full
         br = branch
+        fixit = commit --amend --no-edit
+        fol = !git fetch && git lol
+	sha = "!f() { git rev-parse \"${1-HEAD}\"; }; f"
+[fetch]
+        prune = true
+[submodule]
+        recurse = true
 [color "grep"]
 match = red
 linenumber = bold white
