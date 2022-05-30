@@ -102,20 +102,21 @@ fcd() {
     cd "$dir"
 }
 
-# gsed - sed in git repository
+# gsed - replace in git repository
 gsed() {
-    export existing=$1 && export new=$2
-    _sed() {
-        local file row
-        file=$(echo $1 | cut -d ":" -f 1) &&
-        row=$(echo $1 | cut -d ":" -f 2) &&
-        sed -i -e "$row s/$existing/$new/" $file
-    }
+    local existing new
+    existing=$1 && new=$2
     export -f _sed &&
-    git grep -n $existing |
+    git grep -n --color=always $existing |
     fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort --multi --bind ctrl-a:select-all |
-    grep -o '.*\..*:[0-9]*:' | xargs -I % bash -c "_sed %"  &&
-    export -n existing new
+    grep -o '.*\..*:[0-9]*:' | xargs -I % bash -c "_sed % $existing $new"
+}
+
+_sed() {
+    local file row
+    file=$(echo $1 | cut -d ":" -f 1) &&
+    row=$(echo $1 | cut -d ":" -f 2) &&
+    sed -i -e "$row s/$2/$3/" $file
 }
 
 # fact - conda activate

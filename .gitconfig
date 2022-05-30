@@ -9,3 +9,7 @@
         cm = commit
         lol = log --graph --oneline --remotes --branches --decorate=full
         br = branch
+[color "grep"]
+match = red
+linenumber = bold white
+filename = yellow
