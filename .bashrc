@@ -50,9 +50,11 @@ fi
 ##########
 # CUSTOM #
 ##########
+SCRIPT_NAME=$(readlink -f ${BASH_SOURCE[0]})
+DOTFILE_DIR=`dirname $SCRIPT_NAME`
 
-source ~/dotfiles/.git-completion.bash
-source ~/dotfiles/.git-prompt.sh
+source $DOTFILE_DIR/.git-completion.bash
+source $DOTFILE_DIR/.git-prompt.sh
 
 GIT_PS1_SHOWDIRTYSTATE=true
 GIT_PS1_SHOWUNTRACKEDFILES=true
@@ -62,84 +64,10 @@ PS1='\[\e[1;32m\]\u@\h\[\e[m\]:\[\e[1;34m\]\w\[\e[m\]$(__git_ps1 "(\[\e[1;31m\]%
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-# fco - checkout git commit
-fco() {
-  local commit
-  commit=$(git log --graph --color=always --remotes --branches \
-               --format="%C(auto)%h%d %s %C(white)%C(bold)%cr" "$@" |
-           fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort |
-           grep -o '[a-f0-9]\{7\}') &&
-	git checkout $commit
+source $DOTFILE_DIR/.functions.bash
 
-}
-
-# fbr - checkout git branch (including remote branches)
-fbr() {
-    local branches branch
-    branches=$(git branch --all | grep -v HEAD) &&
-    branch=$(echo "$branches" |
-             fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
-    git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
-}
-
-# fshow - git commit browser
-fshow() {
-    git log --graph --color=always --remotes --branches\
-        --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
-    fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
-        --bind "ctrl-m:execute:
-                (grep -o '[a-f0-9]\{7\}' | head -1 |
-		             xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
-{}
-FZF-EOF"
-}
-
-# fadd - git add files
-fadd() {
-    local selected
-    selected=$(git status -s | fzf -m --preview="echo {} | awk '{print \$2}' | xargs git diff --color" | awk '{print $2}')
-    if [[ -n "$selected" ]]; then
-        selected=$(tr '\n' ' ' <<< "$selected")
-        git add $selected
-        echo "Completed: git add $selected"
-    fi
-}
-
-# fcd - cd to selected directory
-fcd() {
-    local dir
-    dir=$(find ${1:-.} -path '*/\.*' -prune \
-          -o -type d -print 2> /dev/null | fzf +m) &&
-    cd "$dir"
-}
-
-# gsed - replace in git repository
-gsed() {
-    local existing new
-    existing=$1 && new=$2
-    export -f _sed &&
-    git grep -n --color=always $existing |
-    fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort --multi --bind ctrl-a:select-all |
-    grep -o '.*\..*:[0-9]*:' | xargs -I % bash -c "_sed % $existing $new"
-}
-
-_sed() {
-    local file row
-    file=$(echo $1 | cut -d ":" -f 1) &&
-    row=$(echo $1 | cut -d ":" -f 2) &&
-    sed -i -e "$row s/$2/$3/" $file
-}
-
-# fact - conda activate
-fact() {
-    local env
-    env=$(conda env list |
-          fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort |
-          cut -d " " -f 1) &&
-    conda activate $env
-}
-
-. ~/dotfiles/.z/z.sh
+. $DOTFILE_DIR/.z/z.sh
+unset SCRIPT_NAME
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
