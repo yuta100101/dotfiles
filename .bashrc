@@ -94,6 +94,17 @@ fshow() {
 FZF-EOF"
 }
 
+# fadd - git add files
+fadd() {
+    local selected
+    selected=$(git status -s | fzf -m --preview="echo {} | awk '{print \$2}' | xargs git diff --color" | awk '{print $2}')
+    if [[ -n "$selected" ]]; then
+        selected=$(tr '\n' ' ' <<< "$selected")
+        git add $selected
+        echo "Completed: git add $selected"
+    fi
+}
+
 # fcd - cd to selected directory
 fcd() {
     local dir
