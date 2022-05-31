@@ -3,6 +3,8 @@
         name = yuta100101
 [core]
 	editor = vim
+        quotepath = false
+        ignorecase = false
 [alias]
         ss = status
         ck = checkout
@@ -16,6 +18,10 @@
         prune = true
 [submodule]
         recurse = true
+[pager]
+        log = diff-highlight | less
+        show = diff-highlight | less
+        diff = diff-highlight | less
 [color "grep"]
 match = red
 linenumber = bold white
