@@ -2,7 +2,7 @@
 
 DOTFILE_DIR=$(cd $(dirname $0) | pwd)
 
-mkdir ~/.bachup
+mkdir ~/backup
 
 dotfiles=(".bashrc" ".bash_aliases" ".gitconfig")
 
