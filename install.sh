@@ -4,7 +4,7 @@ DOTFILE_DIR=$(cd $(dirname $0) | pwd)
 
 mkdir ~/.bachup
 
-dotfiles=(".bashrc" ".bash_aliases" ".gitignore")
+dotfiles=(".bashrc" ".bash_aliases" ".gitconfig")
 
 for dotfile in ${dotfiles[@]}; do
     if [ -f ~/$dotfile ]; then
