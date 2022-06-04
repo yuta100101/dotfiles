@@ -12,3 +12,9 @@ for dotfile in ${dotfiles[@]}; do
     fi
     ln -s $DOTFILE_DIR/$dotfile ~
 done
+
+if [ $(which diff-highlight | wc -l) -gt 0 ]; then
+    git config --global pager.log "diff-highlight | less"
+    git config --global pager.show "diff-highlight | less"
+    git config --global pager.diff "diff-highlight | less"
+fi
