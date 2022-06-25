@@ -5,6 +5,7 @@ This is yuta100101's dotfiles.
 ```bash
 git clone --recursive https://github.com/yuta100101/dotfiles.git
 dotfiles/install.sh
+source ~/.bashrc
 ```
 
 ### notice
