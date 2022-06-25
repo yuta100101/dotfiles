@@ -15,6 +15,7 @@ done
 
 if [ ! grep -q "source $DOTFILE_DIR/.bashrc" ];then
     echo "source $DOTFILE_DIR/.bashrc" >> ~/.bashrc
+fi
 
 if [ $(which diff-highlight | wc -l) -gt 0 ]; then
     git config --global pager.log "diff-highlight | less"
