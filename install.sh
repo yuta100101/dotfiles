@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DOTFILE_DIR=$(cd $(dirname $0) | pwd)
+DOTFILE_DIR=$(cd $(dirname $BASH_SOURCE); pwd)
 
 mkdir -p ~/backup
 
