@@ -17,6 +17,8 @@ if ! grep -q "source $DOTFILE_DIR/.bashrc" ~/.bashrc; then
     echo "source $DOTFILE_DIR/.bashrc" >> ~/.bashrc
 fi
 
+$DOTFILE_DIR/.fzf/install
+
 if [ $(which diff-highlight | wc -l) -gt 0 ]; then
     git config --global pager.log "diff-highlight | less"
     git config --global pager.show "diff-highlight | less"
