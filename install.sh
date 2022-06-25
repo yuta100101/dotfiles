@@ -17,6 +17,14 @@ if ! grep -q "source $DOTFILE_DIR/.bashrc" ~/.bashrc; then
     echo "source $DOTFILE_DIR/.bashrc" >> ~/.bashrc
 fi
 
+if ! grep -q ". ~/.bash_aliases" ~/.bashrc; then
+    cat << EOF >> ~/.bashrc
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+EOF
+fi
+
 $DOTFILE_DIR/.fzf/install
 
 if [ $(which diff-highlight | wc -l) -gt 0 ]; then
