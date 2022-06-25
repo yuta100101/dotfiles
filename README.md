@@ -8,4 +8,4 @@ dotfiles/install.sh
 ```
 
 ### notice
-If you use `diff-highlight`, you need to add path to it before install.
+You need to add path to it before install.
