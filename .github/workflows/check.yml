@@ -22,3 +22,23 @@ jobs:
         run: ./install.sh
       - name: Activate
         run: source ~/.bashrc
+
+  centos:
+    runs-on: ubuntu-latest
+    container: centos:latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Install required packages
+        run: yum install -y git
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.SUBMODULE_TOKEN }}
+          submodules: recursive
+      - name: Install dotfiles
+        run: ./install.sh
+      - name: Activate
+        run: source ~/.bashrc
