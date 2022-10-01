@@ -5,9 +5,9 @@ on: [push]
 jobs:
   ubuntu:
     runs-on: ubuntu-latest
+    container: ubuntu:latest
     defaults:
       run: bash
-    container: ubuntu:latest
     steps:
       - uses: actions/checkout@v3
       - name: Install required packages
