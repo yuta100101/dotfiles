@@ -9,4 +9,4 @@ source ~/.bashrc
 ```
 
 ### notice
-You need to add path to `diff-highlight` before install.
+You need to add path to [`diff-highlight`](https://github.com/git/git/tree/master/contrib/diff-highlight) before install.
