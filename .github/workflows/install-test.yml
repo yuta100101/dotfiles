@@ -1,0 +1,24 @@
+name: InstallTest
+
+on: [push]
+
+jobs:
+  ubuntu:
+    runs-on: ubuntu-latest
+    container: ubuntu:latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Install required packages
+        run: apt-get update && apt-get install -y git
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.SUBMODULE_TOKEN }}
+          submodules: recursive
+      - name: Install dotfiles
+        run: ./install.sh
+      - name: Activate
+        run: source ~/.bashrc
