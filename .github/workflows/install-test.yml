@@ -9,6 +9,8 @@ jobs:
     defaults:
       run:
         shell: bash
+    permissions:
+      contents: read
     steps:
       - name: Install required packages
         run: apt-get update && apt-get install -y git
