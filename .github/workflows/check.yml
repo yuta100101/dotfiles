@@ -1,0 +1,16 @@
+name: CI
+
+on: [push]
+
+jobs:
+  ubuntu:
+    runs-on: ubuntu-latest
+    container: ubuntu:latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install required packages
+        run: apt-get update && apt-get install -y git
+      - name: Install dotfiles
+        run: ./install.sh
+      - name: Activate
+        run: source ~/.bashrc
