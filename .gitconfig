@@ -10,7 +10,7 @@
         ss = status
         ck = checkout
         cm = commit
-        lol = log --graph --oneline --remotes --branches --decorate=full
+        lol = log --graph --oneline --remotes --branches --decorate=full --all
         br = branch
         fixit = commit --amend --no-edit
         fol = !git fetch && git lol
