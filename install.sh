@@ -1,20 +1,29 @@
 #!/bin/bash
 
-DOTFILE_DIR=$(cd $(dirname $BASH_SOURCE); pwd)
+DOTFILE_DIR=$(cd $(dirname ${BASH_SOURCE}); pwd)
 
-mkdir -p ~/backup
+BACKUP_DIR=~/backup
+mkdir -p ${BACKUP_DIR}
 
 dotfiles=(".bash_aliases" ".gitconfig")
 
 for dotfile in ${dotfiles[@]}; do
-    if [ -f ~/$dotfile ]; then
-        mv ~/$dotfile ~/.bachup
+    if [ -f ~/${dotfile} ]; then
+        if [ -L ~/${dotfile} ]; then
+            if [ $(readlink ~/${dotfile}) == ${DOTFILE_DIR}/${dotfile} ]; then
+                continue
+            else
+                unlink ~/${dotfile}
+            fi
+        else
+            mv ~/${dotfile} ${BACKUP_DIR}
+        fi
     fi
-    ln -s $DOTFILE_DIR/$dotfile ~
+    ln -s ${DOTFILE_DIR}/${dotfile} ~
 done
 
-if ! grep -q "source $DOTFILE_DIR/.bashrc" ~/.bashrc; then
-    echo "source $DOTFILE_DIR/.bashrc" >> ~/.bashrc
+if ! grep -q "source ${DOTFILE_DIR}/.bashrc" ~/.bashrc; then
+    echo "source ${DOTFILE_DIR}/.bashrc" >> ~/.bashrc
 fi
 
 if ! grep -q ". ~/.bash_aliases" ~/.bashrc; then
@@ -25,7 +34,9 @@ fi
 EOF
 fi
 
-$DOTFILE_DIR/.fzf/install
+if [ $(which fzf | wc -l) -eq 0 ]; then
+    ${DOTFILE_DIR}/.fzf/install
+fi
 
 if [ $(which diff-highlight | wc -l) -gt 0 ]; then
     git config --global pager.log "diff-highlight | less"
