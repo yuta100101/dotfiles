@@ -15,6 +15,7 @@
         fixit = commit --amend --no-edit
         fol = !git fetch && git lol
 	sha = "!f() { git rev-parse \"${1-HEAD}\"; }; f"
+        unadd = restore --staged
 [fetch]
         prune = true
 [submodule]
