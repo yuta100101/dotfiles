@@ -7,7 +7,7 @@ fco() {
                --format="%C(auto)%h%d %s %C(white)%C(bold)%cr" "$@" |
            fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort |
            grep -o '[a-f0-9]\{7\}') &&
-	git checkout $commit
+	git checkout ${commit}
 
 }
 
@@ -15,9 +15,9 @@ fco() {
 fbr() {
     local branches branch
     branches=$(git branch --all | grep -v HEAD) &&
-    branch=$(echo "$branches" |
-             fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
-    git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+    branch=$(echo "${branches}" |
+             fzf-tmux -d $(( 2 + $(wc -l <<< "${branches}") )) +m) &&
+    git checkout $(echo "${branch}" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
 
 # fshow - git commit browser
@@ -36,10 +36,10 @@ FZF-EOF"
 fadd() {
     local selected
     selected=$(git status -s | fzf -m --preview="echo {} | awk '{print \$2}' | xargs git diff --color" | awk '{print $2}')
-    if [[ -n "$selected" ]]; then
-        selected=$(tr '\n' ' ' <<< "$selected")
-        git add $selected
-        echo "Completed: git add $selected"
+    if [[ -n "${selected}" ]]; then
+        selected=$(tr '\n' ' ' <<< "${selected}")
+        git add ${selected}
+        echo "Completed: git add ${selected}"
     fi
 }
 
@@ -48,7 +48,7 @@ fcd() {
     local dir
     dir=$(find ${1:-.} -path '*/\.*' -prune \
           -o -type d -print 2> /dev/null | fzf +m) &&
-    cd "$dir"
+    cd "${dir}"
 }
 
 # gsed - replace in git repository
@@ -56,16 +56,16 @@ gsed() {
     local existing new
     existing=$1 && new=$2
     export -f _sed &&
-    git grep -n --color=always $existing |
+    git grep -n --color=always ${existing} |
     fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort --multi --bind ctrl-a:select-all |
-    grep -o '.*\..*:[0-9]*:' | xargs -I % bash -c "_sed % $existing $new"
+    grep -o '.*\..*:[0-9]*:' | xargs -I % bash -c "_sed % ${existing} ${new}"
 }
 
 _sed() {
     local file row
     file=$(echo $1 | cut -d ":" -f 1) &&
     row=$(echo $1 | cut -d ":" -f 2) &&
-    sed -i -e "$row s/$2/$3/" $file
+    sed -i -e "${row} s/$2/$3/" ${file}
 }
 
 # fact - conda activate
@@ -74,7 +74,7 @@ fact() {
     env=$(conda env list |
           fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort |
           cut -d " " -f 1) &&
-    conda activate $env
+    conda activate ${env}
 }
 
 touchp() {
