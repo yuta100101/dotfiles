@@ -16,8 +16,12 @@
         fol = !git fetch && git lol
 	sha = "!f() { git rev-parse \"${1-HEAD}\"; }; f"
         unadd = restore --staged
+[commit]
+        verbose = true
 [fetch]
         prune = true
+[merge]
+        conflictStyle = diff3
 [submodule]
         recurse = true
 [color "grep"]
