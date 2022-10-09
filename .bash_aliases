@@ -16,6 +16,9 @@ alias l='ls -CF'
 alias lt="ls -lt"
 
 alias ..="cd .."
+alias ..2="cd ../.."
+alias ..3="cd ../../.."
+alias ..4="cd ../../../.."
 
 alias cp="cp -i"
 alias mv="mv -i"
