@@ -35,7 +35,7 @@ EOF
 fi
 
 if [ $(which fzf | wc -l) -eq 0 ]; then
-    ${DOTFILE_DIR}/.fzf/install
+    ${DOTFILE_DIR}/.fzf/install --key-bindings --completion --update-rc
 fi
 
 if [ $(which diff-highlight | wc -l) -gt 0 ]; then
