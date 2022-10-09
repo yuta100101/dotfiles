@@ -76,3 +76,15 @@ fact() {
           cut -d " " -f 1) &&
     conda activate $env
 }
+
+touchp() {
+    local filepath
+    filepath=$1
+    mkdir -p $(dirname ${filepath}) && touch ${filepath}
+}
+
+cdp() {
+    local dirpath
+    dirpath=$1
+    mkdir -p ${dirpath} && cd ${dirpath}
+}
