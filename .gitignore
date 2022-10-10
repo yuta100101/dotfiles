@@ -1,0 +1,20 @@
+### all ignore ###
+/*
+/.**
+
+### not ignore ###
+!/.fzf/**
+!/.github/**
+!/.z/**
+!/.bash_aliases
+!/.bashrc
+!/.functions.bash
+!/.git-completion.bash
+!/.git-prompt.sh
+!/.gitconfig
+!/.gitmodules
+!/.vimrc
+!/install.sh
+
+!/README.md
+!.gitignore
