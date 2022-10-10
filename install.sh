@@ -5,7 +5,7 @@ DOTFILE_DIR=$(cd $(dirname ${BASH_SOURCE}); pwd)
 BACKUP_DIR=~/backup
 mkdir -p ${BACKUP_DIR}
 
-dotfiles=(".bash_aliases" ".gitconfig", ".vimrc")
+dotfiles=(".bash_aliases" ".gitconfig" ".vimrc")
 
 for dotfile in ${dotfiles[@]}; do
     if [ -f ~/${dotfile} ]; then
@@ -39,7 +39,7 @@ if [ $(which fzf | wc -l) -eq 0 ]; then
 fi
 
 if [ $(which diff-highlight | wc -l) -gt 0 ]; then
-    git config --global pager.log "diff-highlight | less"
-    git config --global pager.show "diff-highlight | less"
-    git config --global pager.diff "diff-highlight | less"
+    git config -f ~/.gitconfig.pager pager.log "diff-highlight | less"
+    git config -f ~/.gitconfig.pager pager.show "diff-highlight | less"
+    git config -f ~/.gitconfig.pager pager.diff "diff-highlight | less"
 fi
