@@ -5,7 +5,7 @@ DOTFILE_DIR=$(cd $(dirname ${BASH_SOURCE}); pwd)
 BACKUP_DIR=~/backup
 mkdir -p ${BACKUP_DIR}
 
-dotfiles=(".bash_aliases" ".gitconfig")
+dotfiles=(".bash_aliases" ".gitconfig", ".vimrc")
 
 for dotfile in ${dotfiles[@]}; do
     if [ -f ~/${dotfile} ]; then
