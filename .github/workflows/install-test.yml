@@ -18,6 +18,6 @@ jobs:
       - name: Clone
         run: git clone https://github.com/yuta100101/dotfiles.git
       - name: Install dotfiles
-        run: ./install.sh
+        run: dotfiles/install.sh
       - name: Activate
         run: source ~/.bashrc
