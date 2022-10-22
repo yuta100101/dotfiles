@@ -1,6 +1,11 @@
 #!/bin/bash
 
 DOTFILE_DIR=$(cd $(dirname ${BASH_SOURCE}); pwd)
+EXEC_DIR=$(pwd)
+
+cd ${DOTFILE_DIR}
+git submodule update --init
+cd ${EXEC_DIR}
 
 BACKUP_DIR=~/backup
 mkdir -p ${BACKUP_DIR}
