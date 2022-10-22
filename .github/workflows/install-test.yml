@@ -16,7 +16,7 @@ jobs:
         run: apt-get update && apt-get install -y git curl
         # Faithfully reproduce the installation method in README
       - name: Clone
-        run: git clone https://github.com/yuta100101/dotfiles.git
+        run: git clone https://github.com/yuta100101/dotfiles.git -b ${{ github.ref_name }}
       - name: Install dotfiles
         run: dotfiles/install.sh
       - name: Activate
