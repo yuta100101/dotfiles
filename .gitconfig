@@ -18,6 +18,8 @@
         unadd = restore --staged
 [commit]
         verbose = true
+[push]
+        autoSetupRemote = true
 [fetch]
         prune = true
 [merge]
