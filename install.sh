@@ -28,7 +28,7 @@ for dotfile in ${dotfiles[@]}; do
     ln -s ${DOTFILE_DIR}/${dotfile} ~
 done
 
-if if [ ! -f ~/.bashrc ] || [ ! grep -q "source ${DOTFILE_DIR}/.bashrc" ~/.bashrc ]; then
+if [ ! -f ~/.bashrc ] || [ ! grep -q "source ${DOTFILE_DIR}/.bashrc" ~/.bashrc ]; then
     echo "source ${DOTFILE_DIR}/.bashrc" >> ~/.bashrc
 fi
 
