@@ -16,6 +16,7 @@
         fol = !git fetch && git lol
 	sha = "!f() { git rev-parse \"${1-HEAD}\"; }; f"
         unadd = restore --staged
+        sq = "!f() { git rebase -i HEAD~"$1"; }; f"
 [commit]
         verbose = true
 [push]
