@@ -28,11 +28,11 @@ for dotfile in "${dotfiles[@]}"; do
     ln -s "${DOTFILE_DIR}/${dotfile}" ~
 done
 
-if [[ (! -f ~/.bashrc) || (! -n "$(grep -q "source ${DOTFILE_DIR}/.bashrc" ~/.bashrc)") ]]; then
+if [[ (! -f ~/.bashrc) || (-z "$(grep "source ${DOTFILE_DIR}/.bashrc" ~/.bashrc)") ]]; then
     echo "source ${DOTFILE_DIR}/.bashrc" >> ~/.bashrc
 fi
 
-if [[ ! -n "$(grep -q ". ~/.bash_aliases" ~/.bashrc)" ]]; then
+if [[ -z "$(grep ". ~/.bash_aliases" ~/.bashrc)" ]]; then
     cat << EOF >> ~/.bashrc
 if [[ -f ~/.bash_aliases ]]; then
     . ~/.bash_aliases
