@@ -10,6 +10,7 @@
         ss = status
         ck = checkout
         cm = commit
+        sw = switch
         lol = log --graph --oneline --remotes --branches --decorate=auto --all
         br = branch
         fixit = commit --amend --no-edit
