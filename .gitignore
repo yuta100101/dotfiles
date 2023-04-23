@@ -3,6 +3,7 @@
 /.**
 
 ### not ignore ###
+!/.fish/**
 !/.fzf/**
 !/.github/**
 !/.z/**
