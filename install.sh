@@ -58,6 +58,7 @@ EOF
         chsh -s /usr/bin/fish
         curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
         exec fish
+        cp "${DOTFILE_DIR}/.fish/config.fish" ~/.config/fish/config.fish
         fisher install jethrokuan/z
         fisher install 0rax/fish-bd
         fisher install jethrokuan/fzf
