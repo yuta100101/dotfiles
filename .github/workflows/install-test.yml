@@ -31,7 +31,7 @@ jobs:
       contents: read
     steps:
       - name: Install required packages
-        run: apt-get update && apt-get install -y git curl sudo
+        run: apt-get update && apt-get install -y git curl sudo software-properties-common
         # Faithfully reproduce the installation method in README
       - name: fish-actions/install-fish
         uses: fish-actions/install-fish@v1.1.0
