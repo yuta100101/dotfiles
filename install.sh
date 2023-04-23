@@ -11,21 +11,25 @@ popd
 BACKUP_DIR=~/backup
 mkdir -p "${BACKUP_DIR}"
 
+_link () {
+    if [[ -f ~/"${1}" ]]; then
+        if [[ -L ~/"${1}" ]]; then
+            if [[ "$(readlink ~/${1})" == "${DOTFILE_DIR}/${1}" ]]; then
+                return
+            else
+                unlink "~/${1}"
+            fi
+        else
+            mv "~/${1}" "${BACKUP_DIR}"
+        fi
+    fi
+    ln -s "${DOTFILE_DIR}/${1}" ~
+}
+
 dotfiles=(".bash_aliases" ".gitconfig" ".vimrc")
 
 for dotfile in "${dotfiles[@]}"; do
-    if [[ -f ~/"${dotfile}" ]]; then
-        if [[ -L ~/"${dotfile}" ]]; then
-            if [[ "$(readlink ~/${dotfile})" == "${DOTFILE_DIR}/${dotfile}" ]]; then
-                continue
-            else
-                unlink "~/${dotfile}"
-            fi
-        else
-            mv "~/${dotfile}" "${BACKUP_DIR}"
-        fi
-    fi
-    ln -s "${DOTFILE_DIR}/${dotfile}" ~
+    _link "${dotfile}"
 done
 
 if [[ (! -f ~/.bashrc) || (-z "$(grep "source ${DOTFILE_DIR}/.bashrc" ~/.bashrc)") ]]; then
