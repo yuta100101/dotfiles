@@ -33,6 +33,8 @@ jobs:
       - name: Install required packages
         run: apt-get update && apt-get install -y git curl sudo
         # Faithfully reproduce the installation method in README
+      - name: fish-actions/install-fish
+        uses: fish-actions/install-fish@v1.1.0
       - name: Clone
         run: git clone https://github.com/yuta100101/dotfiles.git -b ${{ github.ref_name }}
       - name: Install dotfiles
