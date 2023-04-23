@@ -2,6 +2,8 @@
 
 set -euxo pipefail
 
+shell=$1
+
 DOTFILE_DIR="$(cd $(dirname ${BASH_SOURCE}); pwd)"
 
 pushd "${DOTFILE_DIR}"
@@ -26,23 +28,32 @@ _link () {
     ln -s "${DOTFILE_DIR}/${1}" ~
 }
 
-dotfiles=(".bash_aliases" ".gitconfig" ".vimrc")
+dotfiles=(".gitconfig" ".vimrc")
 
 for dotfile in "${dotfiles[@]}"; do
     _link "${dotfile}"
 done
 
-if [[ (! -f ~/.bashrc) || (-z "$(grep "source ${DOTFILE_DIR}/.bashrc" ~/.bashrc)") ]]; then
-    echo "source ${DOTFILE_DIR}/.bashrc" >> ~/.bashrc
-fi
+case "${shell}" in
+    bash)
+        if [[ (! -f ~/.bashrc) || (-z "$(grep "source ${DOTFILE_DIR}/.bashrc" ~/.bashrc)") ]]; then
+            echo "source ${DOTFILE_DIR}/.bashrc" >> ~/.bashrc
+        fi
 
-if [[ -z "$(grep ". ~/.bash_aliases" ~/.bashrc)" ]]; then
-    cat << EOF >> ~/.bashrc
-if [[ -f ~/.bash_aliases ]]; then
-    . ~/.bash_aliases
-fi
-EOF
-fi
+        _link ".bash_aliases"
+        if [[ -z "$(grep ". ~/.bash_aliases" ~/.bashrc)" ]]; then
+            cat << EOF >> ~/.bashrc
+        if [[ -f ~/.bash_aliases ]]; then
+            . ~/.bash_aliases
+        fi
+        EOF
+        fi
+        ;;
+    *)
+        echo "Unknown shell: ${shell}"
+        exit 1
+        ;;
+esac
 
 if [[ "$(which fzf | wc -l)" -eq 0 ]]; then
     ${DOTFILE_DIR}/.fzf/install --key-bindings --completion --update-rc
