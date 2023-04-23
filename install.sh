@@ -34,6 +34,10 @@ for dotfile in "${dotfiles[@]}"; do
     _link "${dotfile}"
 done
 
+if [[ "$(which fzf | wc -l)" -eq 0 ]]; then
+    ${DOTFILE_DIR}/.fzf/install --key-bindings --completion --update-rc
+fi
+
 case "${shell}" in
     bash)
         if [[ (! -f ~/.bashrc) || (-z "$(grep "source ${DOTFILE_DIR}/.bashrc" ~/.bashrc)") ]]; then
@@ -49,15 +53,19 @@ case "${shell}" in
 EOF
         fi
         ;;
+    fish)
+        sudo apt install fish -y
+        chsh -s /usr/bin/fish
+        curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
+        fisher install jethrokuan/z
+        fisher install 0rax/fish-bd
+        fisher install jethrokuan/fzf
+        ;;
     *)
         echo "Unknown shell: ${shell}"
         exit 1
         ;;
 esac
-
-if [[ "$(which fzf | wc -l)" -eq 0 ]]; then
-    ${DOTFILE_DIR}/.fzf/install --key-bindings --completion --update-rc
-fi
 
 if [[ "$(which diff-highlight | wc -l)" -gt 0 ]]; then
     git config -f ~/.gitconfig.pager pager.log "diff-highlight | less"
