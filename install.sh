@@ -46,7 +46,7 @@ case "${shell}" in
         if [[ -f ~/.bash_aliases ]]; then
             . ~/.bash_aliases
         fi
-        EOF
+EOF
         fi
         ;;
     *)
