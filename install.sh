@@ -54,6 +54,10 @@ EOF
         fi
         ;;
     fish)
+        sudo apt install fish -y
+        echo "$(which fish)" | sudo tee -a /etc/shells
+        chsh -s "$(which fish)"
+        fish
         curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
         cp "${DOTFILE_DIR}/.fish/config.fish" ~/.config/fish/config.fish
         fisher install jethrokuan/z
